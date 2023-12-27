@@ -1,18 +1,26 @@
 #include "Application.h"
+
+#include "Event/ApplicationEvent.h"
+#include "Log.h"
+
+#include <iostream>
+
 namespace Engine {
 
 	Application::Application()
 	{
-		//ctor
 	}
+
 
 	Application::~Application()
 	{
-		//dtor
 	}
 
 	void Application::Run()
 	{
+		WindowResizeEvent e(1280, 720);
+		EG_TRACE(e.ToString());
+
 		while (true);
 	}
 }
