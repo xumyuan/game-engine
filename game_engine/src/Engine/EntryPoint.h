@@ -1,6 +1,5 @@
 #pragma once
 
-
 #ifdef EG_PLATFORM_WINDOWS
 
 extern Engine::Application* Engine::CreateApplication();

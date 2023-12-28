@@ -1,9 +1,9 @@
+#include "egpch.h"
 #include "Application.h"
 
 #include "Event/ApplicationEvent.h"
 #include "Log.h"
 
-#include <iostream>
 
 namespace Engine {
 

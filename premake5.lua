@@ -1,6 +1,5 @@
 workspace "game_engine"
 	architecture "x64"
-	startproject "Sandbox"
 
 	configurations
 	{
@@ -17,8 +16,11 @@ project "game_engine"
 	kind "SharedLib"
 	language "C++"
 
-	targetdir ("bin/"..outputdir.. "%{prj.name}")
-	objdir ("bin-int/"..outputdir.. "%{prj.name}")
+	targetdir ("bin/"..outputdir.. "/%{prj.name}")
+	objdir ("bin-int/"..outputdir.. "/%{prj.name}")
+
+	pchheader "egpch.h"
+	pchsource "game_engine/src/egpch.cpp"
 
 	files
 	{
@@ -28,24 +30,25 @@ project "game_engine"
 
 	includedirs
 	{
-		"%{prj.name}/vendor/spdlog/include"
+		"game_engine/vendor/spdlog/include",
+		"game_engine/src"
 	}
 
 	filter "system:windows"
 		cppdialect "C++17"
 		staticruntime "On"
-		systemversion "10.0.22621.0"
+		systemversion "latest"
 
-	defines
-	{
-		"EG_PLATFORM_WINDOWS",
-		"EG_BUILD_DLL"
-	}
+		defines
+		{
+			"EG_PLATFORM_WINDOWS",
+			"EG_BUILD_DLL"
+		}
 
-	postbuildcommands
-	{
-		("{COPY} %{cfg.buildtarget.relpath} ../bin/"..outputdir.. "/Sandbox")
-	}
+		postbuildcommands
+		{
+			("{COPY} %{cfg.buildtarget.relpath} ../bin/"..outputdir.. "/Sandbox")
+		}
 
 	filter "configurations:Debug"
 		defines "EG_DEBUG"
@@ -64,8 +67,8 @@ project "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
 
-	targetdir ("bin/"..outputdir.. "%{prj.name}")
-	objdir ("bin-int/"..outputdir.. "%{prj.name}")
+	targetdir ("bin/"..outputdir.. "/%{prj.name}")
+	objdir ("bin-int/"..outputdir.. "/%{prj.name}")
 
 	files
 	{
@@ -87,12 +90,12 @@ project "Sandbox"
 	filter "system:windows"
 		cppdialect "C++17"
 		staticruntime "On"
-		systemversion "10.0.22621.0"
+		systemversion "latest"
 
-	defines
-	{
-		"EG_PLATFORM_WINDOWS"
-	}
+		defines
+		{
+			"EG_PLATFORM_WINDOWS"
+		}
 
 	postbuildcommands
 	{
